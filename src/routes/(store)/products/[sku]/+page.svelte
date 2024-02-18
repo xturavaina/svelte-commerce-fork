@@ -8,12 +8,17 @@
   import Rating from '$lib/components/Rating.svelte'
   import { formatDate } from '$lib/helpers/date'
   import Message from '$lib/components/Message.svelte'
+  import JsonLd from '$lib/components/json-ld.svelte';
 
   export let data
 
   // TODO: Add category to breadcrumbs
   const breadcrumbs = [
     { text: 'Home', href: '/' },
+    ...(data.product.categories ? data.product.categories.map(category => ({
+      text: category.name,
+      href: `/${category.url_path}`
+    })) : []),
     { text: data.product.name! },
   ]
 
@@ -26,6 +31,7 @@
 
 <svelte:head>
   <title>{data.product.name}</title>
+  <JsonLd product={data.product} storeconfig={data.storeconfig} />
 </svelte:head>
 
 <Breadcrumbs items={breadcrumbs} />
