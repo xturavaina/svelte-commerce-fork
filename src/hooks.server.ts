@@ -1,64 +1,89 @@
 import { sdk } from '$lib/server/magento'
 import { redirect, type Handle } from '@sveltejs/kit'
 import { sequence } from '@sveltejs/kit/hooks'
+import type { Cookies } from '@sveltejs/kit'
 
 const initializeCustomer: Handle = async ({ event, resolve }) => {
   const { locals, cookies } = event
 
   const customerToken = cookies.get('customer_token')
-  locals.customerToken = customerToken
 
-  // Fetch the customer data if the user is logged in
-  try {
-    const { customer: customerData } = await sdk.getCustomer(
-      {},
-      { Authorization: `Bearer ${customerToken}` }
-    )
-    locals.customer = customerData
-  } catch (error: any) {}
+    // Stablish token in locals if exist
+  if (customerToken) {
+    locals.customerToken = customerToken
 
-  locals.loggedIn = 'customer' in locals
+    // Fetch customer data only if token is valid and present
+    try {
+      const { customer: customerData } = await sdk.getCustomer(
+        {},
+        { Authorization: `Bearer ${customerToken}` }
+      )
+      locals.customer = customerData
+      locals.loggedIn = true
+    } catch (error: any) {
 
-  // If the user is not logged in, remove the token cookie
+    // Error during the authentication, treat as not authenticated
+      locals.loggedIn = false;
+    }
+  } else {
+    // No token, treat as guest customer
+    locals.loggedIn = false;
+  }
+    // If the user is not logged in, remove the token cookie
   if (!locals.loggedIn) {
     cookies.delete('customer_token', { path: '/' })
-    delete locals.customerToken
   }
 
   return resolve(event)
 }
 
-const initializeCart: Handle = async ({ event, resolve }) => {
-  const { locals, cookies } = event
-
+  // Initialize cart procedure
+async function createCart(locals: App.Locals, cookies: Cookies): Promise<string | undefined> {
   let cartId = cookies.get('cart_id')
 
-  // Assign a cart to the user if it doesn't have one
-  // TODO: Check if the cart is still valid
   if (!cartId) {
-    if (locals.loggedIn) {
-      const { customerCart } = await sdk.createCustomerCart(
-        {},
-        {
+    try {
+      if (locals.loggedIn) {
+        const { customerCart } = await sdk.createCustomerCart({}, {
           Authorization: `Bearer ${locals.customerToken}`,
-        }
-      )
-      cartId = customerCart.id
-    } else {
-      const { id } = await sdk.createGuestCart()
-      cartId = id!
-    }
+        });
+        cartId = customerCart?.id
+      } else {
+        const { id } = await sdk.createGuestCart()
+        cartId = id
+      }
 
-    cookies.set('cart_id', cartId, { path: '/' })
+      if (cartId) {
+        cookies.set('cart_id', cartId, { path: '/' })
+        return cartId;
+      } else {
+        console.error('Could not create cart.');
+      }
+    } catch (error) {
+        console.error('Error creating cart:', error)
+    }
+  }
+  // Try to get cart if cardId is defined
+  if (cartId) {
+    try {
+      const { cart } = await sdk.getCart({ cartId }, {
+        Authorization: `Bearer ${locals.customerToken}`,
+      });
+      locals.cart = cart
+    } catch (error) {
+      console.error('Error retrieving cart:', error)
+      cookies.delete('cart_id', { path: '/' })
+    }
   }
 
-  // TODO: Get the cart content asynchronously
-  const { cart } = await sdk.getCart(
-    { cartId },
-    { Authorization: `Bearer ${locals.customerToken}` }
-  )
+  return cartId
 
-  locals.cart = cart
+}
+
+const initializeCart: Handle = async ({ event, resolve }) => {
+  const { locals, cookies } = event;
+
+  await createCart(locals, cookies)
 
   return resolve(event)
 }
