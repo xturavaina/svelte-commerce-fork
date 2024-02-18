@@ -33,7 +33,7 @@
   >
     <X tabindex="-1" aria-hidden="true" />
   </button>
-  {#if cart.items.length > 0}
+  {#if cart && cart.items.length > 0}
     <ul class="items max-h-96 space-y-2 overflow-y-scroll">
       {#each cart.items as item}
         {@const product = item.product}
