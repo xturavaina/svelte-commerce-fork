@@ -17,7 +17,7 @@
     { text: 'Home', href: '/' },
     ...(data.product.categories ? data.product.categories.map(category => ({
       text: category.name,
-      href: `/${category.url_path}`
+      href: `/categories/${category.url_path}`
     })) : []),
     { text: data.product.name! },
   ]
