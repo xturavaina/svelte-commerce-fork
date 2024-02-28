@@ -1,11 +1,6 @@
-import { sdk } from "$lib/server/magento";
-import type { ReferenceLink } from "$lib/types/helpers";
 import type { ServerLoad } from "@sveltejs/kit";
 
 export const load: ServerLoad = async ({ locals }) => {
-  const { categories: base } = await sdk.getNavCategories();
-
-  const categories = base.items[0].children;
 
   return {
     head: {
@@ -24,12 +19,6 @@ export const load: ServerLoad = async ({ locals }) => {
     customer: locals.customer,
     cart: locals.cart,
     messages: [],
-    navigationItems: categories.map<ReferenceLink>((category) => {
-      return {
-        text: category.category_abbrv ?? category.name,
-        href: category.url_path,
-      };
-    }),
   };
 };
 
