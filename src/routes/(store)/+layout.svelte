@@ -1,26 +1,15 @@
-<script>
-  import PageHeader from '$lib/components/PageHeader.svelte'
-  import PageFooter from '$lib/components/PageFooter.svelte'
-  import FormMessages from '$lib/components/FormMessages.svelte'
-  import SessionMessages from '$lib/components/SessionMessages.svelte'
-</script>
 
-<div class="page-wrapper">
-  <PageHeader />
-  <main class="page-main">
-    <FormMessages />
-    <SessionMessages />
-    <slot />
-  </main>
-  <PageFooter />
-</div>
+
+  <slot />
 
 <style lang="postcss">
-  .page-wrapper {
-    @apply flex min-h-screen flex-col;
+  * {
+    box-sizing: border-box;
   }
 
-  .page-main {
-    @apply container mx-auto flex-1 px-4;
+  :root {
+    background-color: #ffffff;
+    padding: 0;
+    margin: 0;
   }
 </style>

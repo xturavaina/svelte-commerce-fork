@@ -14,7 +14,10 @@
   "prettier": "@ubermanu/prettier-config",
   "dependencies": {
     "graphql-request": "^6.1.0",
+    "he": "^1.2.0",
+    "jsdom": "^24.0.0",
     "radash": "^11.0.0",
+    "swiper": "^11.0.6",
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
@@ -31,11 +34,15 @@
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/nesting": "0.0.0-insiders.565cd3e",
     "@tailwindcss/typography": "^0.5.10",
+    "@types/he": "^1.2.3",
+    "@types/jsdom": "^21.1.6",
     "@types/node": "^20.11.16",
     "@types/zxcvbn": "^4.4.4",
     "@ubermanu/prettier-config": "^3.2.0",
     "autoprefixer": "^10.4.17",
     "dotenv-cli": "^7.3.0",
+    "flowbite": "^2.2.1",
+    "flowbite-svelte": "^0.44.23",
     "graphql": "^16.8.1",
     "graphql-tag": "^2.12.6",
     "postcss": "^8.4.33",

@@ -1,6 +1,9 @@
-query getCmsPage($slug: String!) {
-  cmsPage(identifier: $slug) {
-    title
-    content
+query getCMSBlocks($identifier: [String!]!) {
+  cmsBlocks(identifiers: $identifier) {
+    items {
+      content
+      identifier
+      title
+    }
   }
 }

@@ -3,11 +3,13 @@ query getProducts($sku: String!) {
     items {
       __typename
       id
+      uid
+      sku
       name
       description {
         html
       }
-      sku
+
       stock_status
       only_x_left_in_stock
       price_range {
@@ -20,6 +22,7 @@ query getProducts($sku: String!) {
       }
       image {
         url
+        label
       }
       url_key
       type_id
@@ -67,14 +70,59 @@ query getProducts($sku: String!) {
   }
 }
 
-query getCategories($urlKey: String!) {
-  categories(filters: { url_key: { eq: $urlKey } }) {
+query getCategories($cat_id: String = "ODAw") {
+  categories(filters: { category_uid: { eq: $cat_id } }) {
     items {
-      id
+      uid
       name
-      url_key
-      description
-      image
+      children {
+        uid
+        url_path
+        category_abbrv
+        name
+
+        image
+        thumbnail
+      }
+    }
+  }
+}
+
+query getCategoriesLong($cat_id: String = "ODAw") {
+  categories(filters: { category_uid: { eq: $cat_id } }) {
+    items {
+      name
+      uid
+      children {
+        uid
+        url_path
+        category_abbrv
+        name
+
+        description
+        image
+        relative_url
+
+        cms_block {
+          content
+          title
+        }
+      }
+    }
+  }
+}
+
+query getNavCategories {
+  categories {
+    items {
+      name
+      uid
+      children {
+        uid
+        url_path
+        category_abbrv
+        name
+      }
     }
   }
 }
@@ -132,6 +180,106 @@ query searchProducts(
         url
       }
       url_key
+    }
+  }
+}
+
+query getRecommendedProducts {
+  products(filter: { destacado_home: { eq: "1" } }) {
+    items {
+      sku
+      name
+      categories {
+        name
+      }
+      canonical_url
+      image {
+        url
+      }
+      price {
+        regularPrice {
+          amount {
+            currency
+            value
+          }
+        }
+      }
+      rating_summary
+    }
+  }
+}
+
+query getNewProducts {
+  products(filter: { novedad: { from: "2022-10-28 00:00:00" } }) {
+    items {
+      sku
+      name
+      categories {
+        name
+      }
+      canonical_url
+      image {
+        url
+      }
+      price {
+        regularPrice {
+          amount {
+            currency
+            value
+          }
+        }
+      }
+      rating_summary
+    }
+  }
+}
+
+query getOpportunities {
+  products(filter: { coleccion: { match: "TC" } }) {
+    items {
+      sku
+      name
+      categories {
+        name
+      }
+      canonical_url
+      image {
+        url
+      }
+      price {
+        regularPrice {
+          amount {
+            currency
+            value
+          }
+        }
+      }
+      rating_summary
+    }
+  }
+}
+
+query getLiquidations {
+  products(filter: { cst: { eq: "1" } }) {
+    items {
+      sku
+      name
+      categories {
+        name
+      }
+      canonical_url
+      image {
+        url
+      }
+      price {
+        regularPrice {
+          amount {
+            currency
+            value
+          }
+        }
+      }
+      rating_summary
     }
   }
 }
