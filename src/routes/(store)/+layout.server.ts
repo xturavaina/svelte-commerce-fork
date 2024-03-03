@@ -1,11 +1,11 @@
-import { sdk } from "$lib/server/magento";
-import type { ReferenceLink } from "$lib/types/helpers";
-import type { ServerLoad } from "@sveltejs/kit";
+import { sdk } from "$lib/server/magento"
+import type { ReferenceLink } from "$lib/types/helpers"
+import type { ServerLoad } from "@sveltejs/kit"
 
 export const load: ServerLoad = async ({ locals }) => {
   // Obtiene las categorías de navegación desde el SDK de Magento
-  const { categories: base } = await sdk.getNavCategories();
-  const categories = base.items[0].children;
+  const { categories: base } = await sdk.getNavCategories()
+  const categories = base.items[0].children
 
   // Devuelve los datos necesarios para el cliente, incluyendo los elementos de navegación
   return {

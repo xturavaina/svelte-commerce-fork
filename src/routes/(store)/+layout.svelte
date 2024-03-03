@@ -1,11 +1,11 @@
 <script>
-  import AppBar from "$lib/components/AppBar.svelte";
-  import Footer from "$lib/components/Footer.svelte";
-  import Header from "$lib/components/Header.svelte";
-  import Navbar from "$lib/components/Navbar.svelte";
-  import "../../app.pcss";
+  import AppBar from "$lib/components/AppBar.svelte"
+  import Footer from "$lib/components/Footer.svelte"
+  import Header from "$lib/components/Header.svelte"
+  import Navbar from "$lib/components/Navbar.svelte"
+  import "../../app.pcss"
 
-  export let data;
+  export let data
 </script>
 
 <svelte:head>

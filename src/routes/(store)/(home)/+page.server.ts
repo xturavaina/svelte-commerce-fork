@@ -1,5 +1,5 @@
-import tableToJson from "$lib/helpers/table-to-json";
-import { sdk } from "$lib/server/magento";
+import tableToJson from "$lib/helpers/table-to-json"
+import { sdk } from "$lib/server/magento"
 import type {
   BrandData,
   BrandRawData,
@@ -7,12 +7,12 @@ import type {
   CarouselProduct,
   CategoryReference,
   SliderRawData,
-} from "$lib/types/helpers";
-import he from "he";
+} from "$lib/types/helpers"
+import he from "he"
 
 export async function load() {
   // Categories
-  const { categories } = await sdk.getCategories();
+  const { categories } = await sdk.getCategories()
 
   const categoryReferences = categories.items[0].children.map((category) => {
     return {
@@ -85,7 +85,7 @@ export async function load() {
     });
 
   // New Items
-  const { products: newItems } = await sdk.getNewProducts();
+  const { products: newItems } = await sdk.getNewProducts()
 
   const newProducts = newItems.items.slice(0, 8).map((product) => {
     const name = product.name;
@@ -112,8 +112,8 @@ export async function load() {
     identifier: "home-slider-bottom",
   });
 
-  content = bottomSliderBlock.items[0].content;
-  decodedHTML = he.decode(content);
+  content = bottomSliderBlock.items[0].content
+  decodedHTML = he.decode(content)
   let bottomSliderRawData = tableToJson(decodedHTML, true) as SliderRawData[];
 
   const bottomSlider = bottomSliderRawData.map((headerSlide) => {
@@ -124,16 +124,16 @@ export async function load() {
       title: headerSlide["Título"],
       buttonText: headerSlide["Texto botón"],
       description: headerSlide["Descripción"],
-    } as bannerSlideInformationData;
+    } as bannerSlideInformationData
   });
 
   // Liquidation
-  const { products: liquidationProducts } = await sdk.getLiquidations();
+  const { products: liquidationProducts } = await sdk.getLiquidations()
 
   const liquidations = liquidationProducts.items.slice(0, 8).map((product) => {
     const name = product.name;
-    const amount = product.price.regularPrice.amount.value;
-    const currency = product.price.regularPrice.amount.currency;
+    const amount = product.price.regularPrice.amount.value
+    const currency = product.price.regularPrice.amount.currency
     const category = product.categories.slice(-1)[0].name;
     const href = `/${product.canonical_url}`;
     const image = product.image.url;
@@ -156,13 +156,13 @@ export async function load() {
   const opportunities = opportunitiesProducts.items
     .slice(0, 8)
     .map((product) => {
-      const name = product.name;
-      const amount = product.price.regularPrice.amount.value;
-      const currency = product.price.regularPrice.amount.currency;
-      const category = product.categories.slice(-1)[0].name;
-      const href = `/${product.canonical_url}`;
-      const image = product.image.url;
-      const rating = product.rating_summary;
+      const name = product.name
+      const amount = product.price.regularPrice.amount.value
+      const currency = product.price.regularPrice.amount.currency
+      const category = product.categories.slice(-1)[0].name
+      const href = `/${product.canonical_url}`
+      const image = product.image.url
+      const rating = product.rating_summary
 
       return {
         name: name,
