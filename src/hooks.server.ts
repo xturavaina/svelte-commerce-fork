@@ -1,3 +1,5 @@
+// src/hooks.server.ts
+
 import { sdk } from '$lib/server/magento'
 import { redirect, type Handle } from '@sveltejs/kit'
 import { sequence } from '@sveltejs/kit/hooks'

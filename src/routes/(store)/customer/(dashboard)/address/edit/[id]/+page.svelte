@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
   import PageTitle from '$lib/components/PageTitle.svelte'
   import AddressForm from '$lib/components/AddressForm.svelte'
   import Message from '$lib/components/Message.svelte'
@@ -22,4 +22,4 @@
   {/if}
 </div>
 
-<AddressForm action="?/editAddress" {data} />
+<AddressForm action="?/editAddress" {data} /> -->

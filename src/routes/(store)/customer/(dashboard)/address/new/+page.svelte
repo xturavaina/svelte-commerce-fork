@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
   import PageTitle from '$lib/components/PageTitle.svelte'
   import AddressForm from '$lib/components/AddressForm.svelte'
   import Fieldset from '$lib/components/Form/Fieldset.svelte'
@@ -20,4 +20,4 @@
       label="Use as my default shipping address"
     />
   </Fieldset>
-</AddressForm>
+</AddressForm> -->

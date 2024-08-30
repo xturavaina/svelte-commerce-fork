@@ -1,3 +1,5 @@
+<!-- src/routes/(store)/categories/[url_key]/+page.svelte -->
+
 <script>
   import Breadcrumbs from '$lib/components/Breadcrumbs.svelte'
   import ProductList from '$lib/components/ProductList.svelte'

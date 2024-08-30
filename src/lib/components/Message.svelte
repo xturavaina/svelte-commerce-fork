@@ -1,18 +1,18 @@
 <script lang="ts">
   import {
-    AlertTriangle,
-    CheckCircle,
-    HelpCircle,
-    XOctagon,
+    TriangleAlert,
+    CircleCheck,
+    CircleHelp,
+    OctagonX,
   } from 'svelte-lucide'
 
   export let level: 'info' | 'success' | 'warning' | 'error' = 'info'
 
   const icons = {
-    info: HelpCircle,
-    success: CheckCircle,
-    warning: AlertTriangle,
-    error: XOctagon,
+    info: CircleHelp,
+    success: CircleCheck,
+    warning: TriangleAlert,
+    error: OctagonX,
   }
 </script>
 

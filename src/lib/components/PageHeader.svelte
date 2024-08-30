@@ -2,7 +2,7 @@
   import { page } from '$app/stores'
   import MiniCart from '$lib/components/MiniCart.svelte'
   import Input from '$lib/components/Form/Input.svelte'
-  import { Search, UserCircle } from 'svelte-lucide'
+  import { Search, CircleUser } from 'svelte-lucide'
   import DarkMode from '$lib/components/DarkMode.svelte'
 </script>
 
@@ -42,7 +42,7 @@
         href="/customer/account"
         title="My Account"
       >
-        <UserCircle tabindex="-1" aria-hidden="true" />
+        <CircleUser tabindex="-1" aria-hidden="true" />
       </a>
     {:else}
       <a
@@ -50,7 +50,7 @@
         href="/customer/account/login"
         title="Login"
       >
-        <UserCircle tabindex="-1" aria-hidden="true" />
+        <CircleUser tabindex="-1" aria-hidden="true" />
       </a>
     {/if}
 

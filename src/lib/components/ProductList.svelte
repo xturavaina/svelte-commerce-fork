@@ -1,7 +1,7 @@
 <script lang="ts">
-  import type { ProductInterface } from '$lib/generated/graphql'
+  import type { CategoryProductItem } from '$lib/types'
 
-  export let products: ProductInterface[] = []
+  export let products: CategoryProductItem[] = []
 
   export let mode: 'grid' | 'list' = 'grid'
 </script>

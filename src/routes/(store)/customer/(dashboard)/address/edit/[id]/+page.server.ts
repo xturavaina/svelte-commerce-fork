@@ -1,17 +1,19 @@
-import type { CustomerAddress } from '$lib/generated/graphql'
-import type { Actions, ServerLoad } from '@sveltejs/kit'
+// src/routes/(store)/customer/(dashboard)/address/edit/[id]/+page.server.ts
 
-export const load: ServerLoad = async ({ params }) => {
-  // TODO: Get those values from the address to edit.
-  return {
-    address: {} as CustomerAddress,
-  }
-}
+// import type { CustomerAddress } from '$lib/generated/graphql'
+// import type { Actions, ServerLoad } from '@sveltejs/kit'
 
-export const actions: Actions = {
-  editAddress: async ({ request }) => {
-    const formData = request.formData()
-    // TODO: Edit address
-    return {}
-  },
-}
+// export const load: ServerLoad = async ({ params }) => {
+//   // TODO: Get those values from the address to edit.
+//   return {
+//     address: {} as CustomerAddress,
+//   }
+// }
+
+// export const actions: Actions = {
+//   editAddress: async ({ request }) => {
+//     const formData = request.formData()
+//     // TODO: Edit address
+//     return {}
+//   },
+// }

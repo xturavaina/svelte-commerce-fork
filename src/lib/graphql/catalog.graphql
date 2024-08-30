@@ -1,7 +1,6 @@
 query getProducts($sku: String!) {
   products(filter: { sku: { eq: $sku } }) {
     items {
-      __typename
       id
       name
       description {
@@ -23,21 +22,6 @@ query getProducts($sku: String!) {
       }
       url_key
       type_id
-      categories {
-        id
-        name
-        url_key
-        url_path
-        canonical_url
-          breadcrumbs {
-            category_id
-            category_level
-            category_name
-            category_uid
-            category_url_key
-            category_url_path
-          }
-      }
 
       rating_summary
       review_count
@@ -67,14 +51,62 @@ query getProducts($sku: String!) {
   }
 }
 
-query getCategories($urlKey: String!) {
+query getCategories($urlKey: String = "ODAw") {
   categories(filters: { url_key: { eq: $urlKey } }) {
     items {
       id
       name
       url_key
-      description
-      image
+      children {
+        url_key
+        uid
+        url_path
+        category_abbrv
+        name
+        image
+        thumbnail
+      }
+    }
+  }
+}
+
+query getCategoriesLong($cat_id: String = "ODAw") {
+  categories(filters: { category_uid: { eq: $cat_id } }) {
+    items {
+      name
+      uid
+      children {
+        uid
+        url_path
+        category_abbrv
+        name
+
+        description
+        image
+        relative_url
+
+        cms_block {
+          content
+          title
+        }
+      }
+    }
+  }
+}
+
+query getNavCategories {
+  categories {
+    items {
+      name
+      id
+      children {
+        uid
+        url_path
+        category_abbrv
+        name
+        image
+        thumbnail
+      }
     }
   }
 }
@@ -132,6 +164,106 @@ query searchProducts(
         url
       }
       url_key
+    }
+  }
+}
+
+query getRecommendedProducts {
+  products(filter: { destacado_home: { eq: "1" } }) {
+    items {
+      sku
+      name
+      categories {
+        name
+      }
+      canonical_url
+      image {
+        url
+      }
+      price {
+        regularPrice {
+          amount {
+            currency
+            value
+          }
+        }
+      }
+      rating_summary
+    }
+  }
+}
+
+query getNewProducts {
+  products(filter: { novedad: { from: "2022-10-28 00:00:00" } }) {
+    items {
+      sku
+      name
+      categories {
+        name
+      }
+      canonical_url
+      image {
+        url
+      }
+      price {
+        regularPrice {
+          amount {
+            currency
+            value
+          }
+        }
+      }
+      rating_summary
+    }
+  }
+}
+
+query getOpportunities {
+  products(filter: { coleccion: { match: "TC" } }) {
+    items {
+      sku
+      name
+      categories {
+        name
+      }
+      canonical_url
+      image {
+        url
+      }
+      price {
+        regularPrice {
+          amount {
+            currency
+            value
+          }
+        }
+      }
+      rating_summary
+    }
+  }
+}
+
+query getLiquidations {
+  products(filter: { cst: { eq: "1" } }) {
+    items {
+      sku
+      name
+      categories {
+        name
+      }
+      canonical_url
+      image {
+        url
+      }
+      price {
+        regularPrice {
+          amount {
+            currency
+            value
+          }
+        }
+      }
+      rating_summary
     }
   }
 }

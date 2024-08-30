@@ -1,3 +1,5 @@
+// src/routes/(store)/categories/[url_key]/+page.server.ts
+
 import { getCategory, getCategoryProducts } from '$lib/server/catalog'
 import { error, type ServerLoad } from '@sveltejs/kit'
 
@@ -7,6 +9,7 @@ export const load: ServerLoad = async ({ params }) => {
   }
 
   const category = await getCategory(params.url_key)
+  console.log("Category ID retrieved:", category?.id);
 
   if (!category) {
     error(404, 'Category not found')

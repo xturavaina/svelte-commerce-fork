@@ -82,13 +82,13 @@
       <input type="hidden" name="return_url" value={$page.url.pathname} />
       <input type="hidden" name="sku" value={data.product.sku} />
 
-      {#if data.product.type_id === 'configurable'}
+      <!-- {#if data.product.type_id === 'configurable'}
         <div class="configurable-options my-8 space-y-4">
           {#each data.product.configurable_options as option}
             <SwatchRenderer {option} />
           {/each}
         </div>
-      {/if}
+      {/if} -->
 
       <div class="box-tocart mt-8 flex items-center gap-2">
         <Input

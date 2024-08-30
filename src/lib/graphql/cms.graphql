@@ -4,3 +4,13 @@ query getCmsPage($slug: String!) {
     content
   }
 }
+
+query getCMSBlocks($identifier: [String!]!) {
+  cmsBlocks(identifiers: $identifier) {
+    items {
+      content
+      identifier
+      title
+    }
+  }
+}

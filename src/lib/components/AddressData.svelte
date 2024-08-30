@@ -1,10 +1,11 @@
+<!-- src/lib/components/AddressData.svelte -->
 <script lang="ts">
-  import type {
-    CartAddressInterface,
-    CustomerAddress,
-  } from '$lib/generated/graphql'
+  import type { CartAddressInterface, GetCustomerAddressesQuery} from '$lib/generated/graphql'
 
-  export let address: CartAddressInterface | CustomerAddress
+  // Extraer el tipo correcto desde GetCustomerAddressesQuery
+  type SimplifiedCustomerAddress = GetCustomerAddressesQuery['customer']['addresses'][0];
+
+  export let address: CartAddressInterface | SimplifiedCustomerAddress;
 </script>
 
 <address>

@@ -16,8 +16,15 @@ export async function getCategory(urlKey: string) {
 }
 
 export async function getCategoryProducts(id: number) {
+  console.log("Category ID being passed:", id);
   const { category } = await sdk.getCategoryProducts({ id })
   return category?.products ?? []
+}
+
+export async function getNavCategories() {
+  console.log("Category ID being passed:");
+  const { categories } = await sdk.getNavCategories()
+  return categories!
 }
 
 interface Toolbar {
